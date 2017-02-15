@@ -1,21 +1,20 @@
-
-
-#include <Arduino.h>
-#include <avr/wdt.h>
-#include <avr/sleep.h>
-
-
-ISR(WDT_vect) { 
 /*
-  wdt_disable();
-  wdt_reset();
-  #if defined(__AVR_ATtiny85__) 
-    WDTCR &= ~_BV(WDIE);
-  #else //ATTiny84, ATMega328
-    WDTCSR &= ~_BV(WDIE);
-  #endif 
-*/  
+
+
+
+
+*/
+
+
+
+#include "sdelay.h"
+
+
+/*
+ISR(WDT_vect) { 
 }
+*/
+
 
 void sleepWithWDT(uint8_t wdt_period) {
   wdt_enable(wdt_period);
@@ -35,12 +34,13 @@ void sleepWithWDT(uint8_t wdt_period) {
   #endif 
 }
 
+
 void sdelay(unsigned long ms) {
   //watchdog timer at 128kHz
   //one tick every 0.0078125ms
   //2048 cycles = 16ms
   //at 5V at room temperature, actual results may vary
-  //it takes 65ms to wake up at slowest setting
+  //it takes 65ms to wake up at the slowest setting
   #define WAKING_UP_TIME 65
   
   while (ms >= 8192 + WAKING_UP_TIME) { sleepWithWDT(WDTO_8S);   ms -= 8192 + WAKING_UP_TIME; }
@@ -56,6 +56,3 @@ void sdelay(unsigned long ms) {
   if (ms > 0) delay(ms);
 }
 
-
-
-//
