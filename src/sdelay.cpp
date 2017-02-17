@@ -10,10 +10,8 @@
 #include "sdelay.h"
 
 
-/*
 ISR(WDT_vect) { 
 }
-*/
 
 
 void sleepWithWDT(uint8_t wdt_period) {
