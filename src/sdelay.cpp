@@ -5,15 +5,9 @@
 
 */
 
-
-
 #include "sdelay.h"
 
-
-/*
-ISR(WDT_vect) { 
-}
-*/
+//ISR(WDT_vect) {} //uncomment this if your board keeps resetting, comment this out if your sketch or other libraries already define this ISR
 
 
 void sleepWithWDT(uint8_t wdt_period) {
